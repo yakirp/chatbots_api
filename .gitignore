@@ -1,0 +1,9 @@
+# Serverless directories
+.serverless
+node_modules
+node_modules
+
+# all test files
+_test*
+
+.env
