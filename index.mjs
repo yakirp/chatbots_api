@@ -91,7 +91,8 @@ export const handler = async (event) => {
     return {
       results: task,
     };
-  } else if (httpMethod === "POST") {
+  }
+  if (httpMethod === "POST") {
     const requestBody = JSON.parse(event.body);
 
     const text = requestBody.text;
