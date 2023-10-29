@@ -10,21 +10,21 @@
 
 set the following env var in the .env file
 
-# OpenAI Configuration
+### OpenAI Configuration
 
 OPENAI_KEY=YOUR_OPENAI_KEY
 
-# PostgreSQL Configuration
+### PostgreSQL Configuration
 
 POSTGRES_URL=YOUR_POSTGRES_URL
 
-# Pinecone Configuration
+### Pinecone Configuration
 
 PINECONE_API_KEY=YOUR_PINECONE_API_KEY
 PINECONE_ENVIRONMENT=YOUR_PINECONE_ENVIRONMENT
 PINECONE_INDEX=YOUR_PINECONE_INDEX
 
-# Postgres url:
+### Postgres url:
 
 POSTGRES_URL=YOUR_POSTGRES_URL
 
