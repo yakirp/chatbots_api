@@ -14,7 +14,7 @@ export const handler = async (event) => {
   if (httpMethod === "GET") {
     // Handle GET request
 
-    const text = event?.queryStringParameters?.text ?? null;
+    const text = event?.queryStringParameters?.input ?? null;
     const namespace = event?.queryStringParameters?.namespace ?? null;
     const scoreThreshold = event?.queryStringParameters?.scoreThreshold ?? 0.5;
     const user_id = event?.queryStringParameters?.user_id ?? null;
@@ -95,9 +95,9 @@ export const handler = async (event) => {
   if (httpMethod === "POST") {
     const requestBody = JSON.parse(event.body);
 
-    const text = requestBody.text;
+    const text = requestBody.input;
     if (!text) {
-      return "Bad Request , text is required";
+      return "Bad Request , input is required";
     }
 
     const namespace = requestBody.namespace;
@@ -129,7 +129,7 @@ export const handler = async (event) => {
 
     return {
       success: true,
-      text,
+      input: text,
       metadata: { ..._ai_metadata, ...metadata },
       namespace,
     };

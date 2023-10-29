@@ -3,15 +3,12 @@
 ## Prerequisites:
 
 1. **Node.js and npm**: Ensure you have Node.js and npm installed. If not, download and install them from [here](https://nodejs.org/).
-
 2. **AWS CLI**: Ensure you have the AWS CLI installed and configured with the necessary access rights. If not, follow the guide [here](https://aws.amazon.com/cli/).
+3. **Pinecone**: Open a free Pinecone account and create an index
+4. **Database**: Create a free Postgres db with Vercel
+5. **Setup env**:
 
-## Installation:
-
-1. **Install Serverless Framework**:
-   ```bash
-   npm install -g serverless
-   ```
+set the following env var in the .env file
 
 # OpenAI Configuration
 
@@ -20,15 +17,27 @@ OPENAI_KEY=YOUR_OPENAI_KEY
 # PostgreSQL Configuration
 
 POSTGRES_URL=YOUR_POSTGRES_URL
-POSTGRES_URL_NON_POOLING=YOUR_POSTGRES_URL_NON_POOLING
-POSTGRES_PRISMA_URL=YOUR_POSTGRES_PRISMA_URL
-POSTGRES_USER=YOUR_POSTGRES_USER
-POSTGRES_HOST=YOUR_POSTGRES_HOST
-POSTGRES_PASSWORD=YOUR_POSTGRES_PASSWORD
-POSTGRES_DATABASE=YOUR_POSTGRES_DATABASE
 
 # Pinecone Configuration
 
 PINECONE_API_KEY=YOUR_PINECONE_API_KEY
 PINECONE_ENVIRONMENT=YOUR_PINECONE_ENVIRONMENT
 PINECONE_INDEX=YOUR_PINECONE_INDEX
+
+# Postgres url:
+
+POSTGRES_URL=YOUR_POSTGRES_URL
+
+6. **Deploy with Serverless**:
+
+   1. ```bash
+      npm install -g serverless
+      ```
+
+   2. ```bash
+      npm i
+      ```
+
+   3. ```bash
+      sls deploy
+      ```
