@@ -25,7 +25,27 @@ export const addChatMessage = async (chat_id, content, role) => {
   //if the role is system, update the system message
   if (role == "system") {
     const { rows: r } =
-      await sql`SELECT * from chat WHERE chat_id = ${chat_id} AND role = 'system'`;
+      await sql`SELECT * from chat WHERE chat_id = ${chat_id} AND role = 'system'`.catch(
+        async (e) => {
+          console.log(e.message);
+
+          if (e.message.includes("does not exist")) {
+            await createChatTable();
+            console.log("table created");
+            return {
+              rows: [],
+            };
+          } else {
+            // handle other errors here, you can decide what to return
+            // for example, you can return an empty result:
+            return {
+              rows: [],
+            };
+            // or you might throw the error again if you want it to be handled upstream
+            // throw e;
+          }
+        }
+      );
     if (r.length > 0) {
       const { id } = r[0];
       await sql`UPDATE chat SET content = ${content} WHERE id = ${id}`;
@@ -40,9 +60,17 @@ export const addChatMessage = async (chat_id, content, role) => {
 
 export const getChatMessages = async (chat_id) => {
   //return last 100 messages
-  const { rows: r } =
-    await sql`SELECT * from chat WHERE chat_id = ${chat_id} ORDER BY created_at  LIMIT 100`;
-  return r;
+  const r =
+    await sql`SELECT * from chat WHERE chat_id = ${chat_id} ORDER BY created_at LIMIT 100`.catch(
+      async (e) => {
+        console.log(e.message);
+        return {
+          rows: [],
+        };
+      }
+    );
+
+  return r.rows;
 };
 
 //get all messages from db and return as openai format

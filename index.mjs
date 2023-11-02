@@ -4,7 +4,6 @@ import { embedder } from "./embeddings.mjs";
 import { ask_ai } from "./utils.mjs";
 
 export const handler = async (event) => {
-  console.log("event", event);
   await embedder.init();
   const httpMethod = event?.requestContext?.http?.method ?? null;
   if (!httpMethod) {
@@ -17,7 +16,7 @@ export const handler = async (event) => {
     const text = event?.queryStringParameters?.input ?? null;
     const namespace = event?.queryStringParameters?.namespace ?? null;
     const scoreThreshold = event?.queryStringParameters?.scoreThreshold ?? 0.5;
-    const user_id = event?.queryStringParameters?.user_id ?? null;
+    const user_id = event?.queryStringParameters?.chat_id ?? null;
     if (!text || !namespace) {
       return {
         statusCode: 400,
@@ -68,14 +67,14 @@ export const handler = async (event) => {
       ${texts.join("\n")}
 
       `;
-      console.log("task", _task);
+
       const t = await ask_ai(
         _task,
         `${text}.\n`,
         user_id ? `chat_${user_id}` : null,
         true
       );
-      console.log("t", t);
+
       //return can be msg or results
       ai = t?.msg ?? t?.results ?? "";
       //check if ai.msg
@@ -84,7 +83,7 @@ export const handler = async (event) => {
       }
 
       return {
-        assistant: ai,
+        output: ai,
         results: task,
       };
     }
@@ -110,7 +109,6 @@ export const handler = async (event) => {
     if (isNeedToConvert) {
       ai_metadata = await ask_ai(requestBody.prompt, text, null, true);
 
-      console.log("ai_metadata", ai_metadata);
       //check that convert is object
       if (typeof ai_metadata !== "object") {
         ai_metadata = {};

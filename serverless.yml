@@ -21,3 +21,5 @@ functions:
   hello:
     image:
       name: appimage
+    timeout: 45
+    memorySize: 256
