@@ -84,7 +84,7 @@ export const handler = async (event) => {
 
       return {
         output: ai,
-        results: task,
+        context: task,
       };
     }
     return {
